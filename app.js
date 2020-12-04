@@ -120,7 +120,40 @@ document.querySelector(".btn-roll").addEventListener("click",function(){
     
 }
 else {
-    // тоглогч 1 буулгасан тул roundscore-ыг 0 богож байна
+    // тоглогчын ээлжийг сольж байна
+    switchToNextPlayer();
+}
+
+
+    });
+    document.querySelector(".btn-hold").addEventListener("click",function(){
+         
+        //  тоглогчийн нийт оноог олж байна activeplayer-ээс хамааруулаад
+        score[activePlayer]=score[activePlayer]+roundScore;
+        // тоглогчийн нийт оноог DOM-ын элемент дээр нь харуулж байна activeplayer-ээс хамааруулаад
+        document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
+       
+        // хожсон эсэхийг шалгах функц
+        if(score[activePlayer]>=20) {
+            // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
+            document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
+             // аль тоглогч ялна тэрний panel хэсэг дээр css -ын winner class-ыг дуудаж winner гэсэн үгээ улаан болгож байна.
+            document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
+            document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
+        }
+        else
+        {
+         // энэ функц нь тоглох ээлжийг дараагийн тоглогчруу шилжүүлдэг фунц юм.    
+        switchToNextPlayer();
+        }
+
+    });
+
+
+
+    // энэ функц нь тоглох ээлжийг дараагийн тоглогчруу шилжүүлдэг фунц юм.
+    function switchToNextPlayer(){
+    //  roundscore-ыг 0 болгож  тоглогчын ээлжийг сольж байна.
     roundScore = 0 ; 
     // тоглогч 1 буулгасан тул DOM-н элемэнтийн 0 богож байна
     document.getElementById('current-' + activePlayer).textContent = 0;
@@ -142,9 +175,5 @@ else {
     //     activePlayer = 1;
     // }
     // else activePlayer = 0; 
-}
-
-
-    });
+    } 
  
-   
