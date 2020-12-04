@@ -1,9 +1,15 @@
-//тоглогчийн ээлжийг хадгалах хувьсагч. нэгдүгээр тоглогчийг 0 , хоёрдугаар тоглогчийг 1 гэж тэмдэглэе
-var activePlayer = 0;
-// тоглогчдын цуглуулсан оноог хадгалах хувьсагч
- var score = [0, 0];
-//тоглогчын ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
+var activePlayer;
+var score ;
+var roundScore;
+
+var diceDom = document.querySelector(".dice");  // DOM-оос нэг удаа хайж олоод хувьсагчинд хийсэн.Өмнөн DOM-оос 3 удаа дуудаж байсныг бодвол хурдан 1 удаа дуудна
+// эхлэх функц
+start();
+
+
+
+
+
 // шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй 1-6 гэсэн утгыг энэ хувьсагчид
 // санамсаргүйгээр үүсгэж өгнө.
 // var diceNumber =Math.floor (Math.random() * 6)+1;
@@ -29,11 +35,7 @@ var roundScore = 0;
 // хайлт хийхдээ getElementById функцийг ашигладаг. DOM-оос хайгаад элемент нь олдохгүй бол DOM нь null утга өгнө.
 
 
-// Программ эхлэхэд бэлтгэе
-document.getElementById('score-0').textContent = 0;       // 1-р тоглогчийн оноог дом дээр 0 болгож байна
-document.getElementById('score-1').textContent = 0;       //  2-р тоглогчийн оноог дом дээр 0 болгож байна
-document.getElementById('current-0').textContent = 0;     //    1-р тоглогчийн current оноог дом дээр 0 болгож байна
-document.getElementById('current-1').textContent = 0;     //     1-р тоглогчийн current оноог дом дээр 0 болгож байна
+
 
 // console.log('шоо :'+ diceNumber);
                                  // Хичээл 42 Эвент гэж ву вэ? callback,anonymous event listner функцууд
@@ -98,8 +100,8 @@ function shooShid(){
 
 }
 */
-var diceDom = document.querySelector(".dice");  // DOM-оос нэг удаа хайж олоод хувьсагчинд хийсэн.Өмнөн DOM-оос 3 удаа дуудаж байсныг бодвол хурдан 1 удаа дуудна
-diceDom.style.display = "none";    //     шооны зургийг дэлгэц дээрээс алга богож байна
+
+
 
 // энэ тохиолдолд Anonymous функц-ээр дуудаж байна.
 document.querySelector(".btn-roll").addEventListener("click",function(){
@@ -134,12 +136,14 @@ else {
         document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
        
         // хожсон эсэхийг шалгах функц
-        if(score[activePlayer]>=20) {
+        if(score[activePlayer]>=10) {
             // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
             document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
              // аль тоглогч ялна тэрний panel хэсэг дээр css -ын winner class-ыг дуудаж winner гэсэн үгээ улаан болгож байна.
-            document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
+             document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
             document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
+            
+        
         }
         else
         {
@@ -148,6 +152,40 @@ else {
         }
 
     });
+
+    document.querySelector(".btn-new").addEventListener("click",start);
+    
+    //эхлэх функц
+    function start(){
+        //тоглогчийн ээлжийг хадгалах хувьсагч. нэгдүгээр тоглогчийг 0 , хоёрдугаар тоглогчийг 1 гэж тэмдэглэе
+      activePlayer = 0;
+      // тоглогчдын цуглуулсан оноог хадгалах хувьсагч
+       score = [0, 0];
+       //тоглогчын ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
+       roundScore = 0;
+
+    // Программ эхлэхэд бэлтгэе
+       document.getElementById('score-0').textContent = 0;       // 1-р тоглогчийн оноог дом дээр 0 болгож байна
+       document.getElementById('score-1').textContent = 0;       //  2-р тоглогчийн оноог дом дээр 0 болгож байна
+       document.getElementById('current-0').textContent = 0;     //    1-р тоглогчийн current оноог дом дээр 0 болгож байна
+       document.getElementById('current-1').textContent = 0;     //     1-р тоглогчийн current оноог дом дээр 0 болгож байна
+       diceDom.style.display = "none";    //     шооны зургийг дэлгэц дээрээс алга богож байна
+        
+        // аль тоглогч ялснын мэдэхгүй тул player 2 гэж бичив.
+        document.getElementById('name-0').textContent = "Player 1";
+         // аль тоглогч ялснын мэдэхгүй тул player 2 гэж бичив.
+         document.getElementById('name-1').textContent = "Player 2";
+
+         document.querySelector(".player-0-panel").classList.remove("winner");
+         document.querySelector(".player-1-panel").classList.remove("winner");
+
+         document.querySelector(".player-0-panel").classList.remove("active");
+         document.querySelector(".player-1-panel").classList.remove("active");
+         document.querySelector(".player-0-panel").classList.add("active");
+
+         
+        
+    };
 
 
 
