@@ -1,5 +1,5 @@
 //тоглогчийн ээлжийг хадгалах хувьсагч. нэгдүгээр тоглогчийг 0 , хоёрдугаар тоглогчийг 1 гэж тэмдэглэе
-var activePlayer = 1;
+var activePlayer = 0;
 // тоглогчдын цуглуулсан оноог хадгалах хувьсагч
  var score = [0, 0];
 //тоглогчын ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
@@ -34,11 +34,6 @@ document.getElementById('score-0').textContent = 0;       // 1-р тоглогч
 document.getElementById('score-1').textContent = 0;       //  2-р тоглогчийн оноог дом дээр 0 болгож байна
 document.getElementById('current-0').textContent = 0;     //    1-р тоглогчийн current оноог дом дээр 0 болгож байна
 document.getElementById('current-1').textContent = 0;     //     1-р тоглогчийн current оноог дом дээр 0 болгож байна
-
-
-
-
-
 
 // console.log('шоо :'+ diceNumber);
                                  // Хичээл 42 Эвент гэж ву вэ? callback,anonymous event listner функцууд
@@ -108,12 +103,48 @@ diceDom.style.display = "none";    //     шооны зургийг дэлгэц
 
 // энэ тохиолдолд Anonymous функц-ээр дуудаж байна.
 document.querySelector(".btn-roll").addEventListener("click",function(){
-    var diceNumber =Math.floor (Math.random() * 6)+1;
-    diceDom.style.display = "block"; 
-    diceDom.src = 'dice-' + diceNumber + '.png' ;
+    var diceNumber =Math.floor (Math.random() * 6)+1;  // 1-6 хүртэл санамсаргүй утга diceNumber-т хийж байна
+    diceDom.style.display = "block";                   // шооны зургийг дэлгэц дээрээс алга богосон байсан эргүүлж гаргаж ирсэн.
+    diceDom.src = 'dice-' + diceNumber + '.png' ;     // DOM дээрээс шооны зургийг олоод өөрчилж байна. diceNumber-ын утгаар өөрчилж байна.
     
     // alert("Шоо буулаа : " + diceNumber);
+
+
+// Буусан тоо нь 1 ээс ялгатай бол идэвхтэй тоглогчийн тоог нэмэгдүүлэнэ.
+   if (diceNumber !== 1) {
+    // тоог нэмэгдүүлж байна.   
+    roundScore = roundScore + diceNumber;
+    // нэмэгдүүлсэн тоогоо Dom-дээр харгалзах элемент дээр гаргаж байна.
+    document.getElementById('current-' + activePlayer).textContent = roundScore;
+    
+    
+}
+else {
+    // тоглогч 1 буулгасан тул roundscore-ыг 0 богож байна
+    roundScore = 0 ; 
+    // тоглогч 1 буулгасан тул DOM-н элемэнтийн 0 богож байна
+    document.getElementById('current-' + activePlayer).textContent = 0;
+    //тоглогч 1 буулгасан тул нөгөө тоглогчыг идэвхжүүлнэ.
+    activePlayer === 0 ? (activePlayer=1):(activePlayer=0);
+    
+    // улаан цэгийг шилжүүлэх
+    /* classlist нь class-уудын list энэ доторх class уудаа нэмж хасаж болдог.classlist дотор add remove 
+    toglgle гэж байна class.toggle("active") гэж бичих ба toggle нь active class байвал хасна байхгүй бол нэмдэг
+    функц юм.
+    */
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+
+    setTimeout(function(){diceDom.style.display = "none"}, 1000);
+    
+    // if(activePlayer===0) 
+    // {
+    //     activePlayer = 1;
+    // }
+    // else activePlayer = 0; 
+}
+
+
+    });
+ 
    
-   });
-
-
