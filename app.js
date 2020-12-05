@@ -117,10 +117,10 @@ if(newGame===false){
     
     
     audio.play();
-    setTimeout(function(){diceDom.style.display = "none"}, 1000);
+    setTimeout(function(){diceDom.style.display = "none";}, 1000);
     
     var diceNumber =Math.floor (Math.random() * 6)+1;  // 1-6 хүртэл санамсаргүй утга diceNumber-т хийж байна
-    diceDom.style.display = "block";                   // шооны зургийг дэлгэц дээрээс алга богосон байсан эргүүлж гаргаж ирсэн.
+    diceDom.style.display = "block"                   // шооны зургийг дэлгэц дээрээс алга богосон байсан эргүүлж гаргаж ирсэн.
     diceDom.src = 'dice-' + diceNumber + '.png' ;     // DOM дээрээс шооны зургийг олоод өөрчилж байна. diceNumber-ын утгаар өөрчилж байна.
     
     // alert("Шоо буулаа : " + diceNumber);
@@ -159,7 +159,7 @@ document.querySelector(".btn-hold").addEventListener("click",function(){
    document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
   
    // хожсон эсэхийг шалгах функц
-   if(score[activePlayer]>=10) {
+   if(score[activePlayer]>=50) {
        newGame = true;
        // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
        document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
@@ -239,10 +239,13 @@ document.querySelector(".btn-hold").addEventListener("click",function(){
     toglgle гэж байна class.toggle("active") гэж бичих ба toggle нь active class байвал хасна байхгүй бол нэмдэг
     функц юм.
     */
+      
+     setTimeout(function(){diceDom.style.display = "none"}, 1000);
+     diceDom.style.display = "block"
     document.querySelector(".player-0-panel").classList.toggle("active");
     document.querySelector(".player-1-panel").classList.toggle("active");
 
-    setTimeout(function(){diceDom.style.display = "none"}, 1500);
+   
     
     // if(activePlayer===0) 
     // {
