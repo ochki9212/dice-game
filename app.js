@@ -159,7 +159,7 @@ document.querySelector(".btn-hold").addEventListener("click",function(){
    document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
   
    // хожсон эсэхийг шалгах функц
-   if(score[activePlayer]>=50) {
+   if(score[activePlayer]>=100) {
        newGame = true;
        // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
        document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
