@@ -1,8 +1,11 @@
 var activePlayer;
 var score ;
 var roundScore;
-
+var newGame ;
+var audio = new Audio('dice.mp3');
 var diceDom = document.querySelector(".dice");  // DOM-оос нэг удаа хайж олоод хувьсагчинд хийсэн.Өмнөн DOM-оос 3 удаа дуудаж байсныг бодвол хурдан 1 удаа дуудна
+
+
 // эхлэх функц
 start();
 
@@ -105,6 +108,17 @@ function shooShid(){
 
 // энэ тохиолдолд Anonymous функц-ээр дуудаж байна.
 document.querySelector(".btn-roll").addEventListener("click",function(){
+    
+
+      
+if(newGame===false){
+
+    
+    
+    
+    audio.play();
+    setTimeout(function(){diceDom.style.display = "none"}, 1000);
+    
     var diceNumber =Math.floor (Math.random() * 6)+1;  // 1-6 хүртэл санамсаргүй утга diceNumber-т хийж байна
     diceDom.style.display = "block";                   // шооны зургийг дэлгэц дээрээс алга богосон байсан эргүүлж гаргаж ирсэн.
     diceDom.src = 'dice-' + diceNumber + '.png' ;     // DOM дээрээс шооны зургийг олоод өөрчилж байна. diceNumber-ын утгаар өөрчилж байна.
@@ -119,6 +133,7 @@ document.querySelector(".btn-roll").addEventListener("click",function(){
     // нэмэгдүүлсэн тоогоо Dom-дээр харгалзах элемент дээр гаргаж байна.
     document.getElementById('current-' + activePlayer).textContent = roundScore;
     
+   
     
 }
 else {
@@ -126,33 +141,50 @@ else {
     switchToNextPlayer();
 }
 
+    }
+    else 
+    alert("Тоглоомыг шинээр эхлүүлнэ үү !!! ");
+},
 
-    });
-    document.querySelector(".btn-hold").addEventListener("click",function(){
+);
+   
+
+
+document.querySelector(".btn-hold").addEventListener("click",function(){
          
-        //  тоглогчийн нийт оноог олж байна activeplayer-ээс хамааруулаад
-        score[activePlayer]=score[activePlayer]+roundScore;
-        // тоглогчийн нийт оноог DOM-ын элемент дээр нь харуулж байна activeplayer-ээс хамааруулаад
-        document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
+     if(newGame===false){
+   //  тоглогчийн нийт оноог олж байна activeplayer-ээс хамааруулаад
+   score[activePlayer]=score[activePlayer]+roundScore;
+   // тоглогчийн нийт оноог DOM-ын элемент дээр нь харуулж байна activeplayer-ээс хамааруулаад
+   document.getElementById("score-"+activePlayer).textContent=score[activePlayer];
+  
+   // хожсон эсэхийг шалгах функц
+   if(score[activePlayer]>=10) {
+       newGame = true;
+       // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
+       document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
+        // аль тоглогч ялна тэрний panel хэсэг дээр css -ын winner class-ыг дуудаж winner гэсэн үгээ улаан болгож байна.
+        document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
+       document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
        
-        // хожсон эсэхийг шалгах функц
-        if(score[activePlayer]>=10) {
-            // Аль тоглоч ялна тэрний нэрний оронд winner !!! гэж гаргаж ирж байна.
-            document.getElementById('name-'+activePlayer).textContent = "Winner !!!";
-             // аль тоглогч ялна тэрний panel хэсэг дээр css -ын winner class-ыг дуудаж winner гэсэн үгээ улаан болгож байна.
-             document.querySelector(".player-"+activePlayer+"-panel").classList.add("winner");
-            document.querySelector(".player-"+activePlayer+"-panel").classList.remove("active");
-            
-        
-        }
-        else
-        {
-         // энэ функц нь тоглох ээлжийг дараагийн тоглогчруу шилжүүлдэг фунц юм.    
-        switchToNextPlayer();
-        }
+   
+   }
+   else
+   {
+    // энэ функц нь тоглох ээлжийг дараагийн тоглогчруу шилжүүлдэг фунц юм.    
+   switchToNextPlayer();
+   }
+
+     }
+     else
+     alert("Тоглоомыг шинээр эхлүүлнэ үү !!! ");
+     
 
     });
 
+   
+   
+   
     document.querySelector(".btn-new").addEventListener("click",start);
     
     //эхлэх функц
@@ -163,6 +195,10 @@ else {
        score = [0, 0];
        //тоглогчын ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
        roundScore = 0;
+
+       // тоглоомын төлөвийн хувьсагч
+       newGame = false;
+
 
     // Программ эхлэхэд бэлтгэе
        document.getElementById('score-0').textContent = 0;       // 1-р тоглогчийн оноог дом дээр 0 болгож байна
@@ -206,7 +242,7 @@ else {
     document.querySelector(".player-0-panel").classList.toggle("active");
     document.querySelector(".player-1-panel").classList.toggle("active");
 
-    setTimeout(function(){diceDom.style.display = "none"}, 1000);
+    setTimeout(function(){diceDom.style.display = "none"}, 1500);
     
     // if(activePlayer===0) 
     // {
@@ -214,4 +250,10 @@ else {
     // }
     // else activePlayer = 0; 
     } 
- 
+   
+  
+    
+    
+     
+      
+      
